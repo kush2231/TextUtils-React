@@ -5,67 +5,71 @@ import About from './Components/About';
 import Navbar from './Components/Navbar';
 import Textform from './Components/Textform';
 import Alert from './Components/Alert';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Routes,
-  BrowserRouter,
-  Outlet,
-} from "react-router-dom";
+import { Route, Routes, BrowserRouter, Outlet } from "react-router-dom";
 
 function App() {
-   const [mode, setmode] = useState('light');
-   const [alert, setalert] = useState(null)
-   const showAlert = (message, type) => {
-      setalert({
-         message: message,
-         type: type
-      });
-      setTimeout( ()=>{
-         setalert(null);
-      }, 1500);
-   }
-   const togglemode = () => {
-      if (mode === 'dark')
-      { 
-         setmode('light');
-         document.body.style.backgroundColor = 'white';
-         showAlert(" light mode is enabled", "success")
-         document.title='TextUtils-Light Mode'
-         
-      }
-      else {
-         setmode('dark');
-         document.body.style.backgroundColor = 'rgb(10 36 71)';
-         showAlert(" Dark  mode is enabled", "success")
-         document.title = 'TextUtils-Dark Mode'
+  const [mode, setmode] = useState("light");
+  const [alert, setalert] = useState(null);
+  const showAlert = (message, type) => {
+    setalert({
+      message: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setalert(null);
+    }, 1500);
+  };
+  const togglemode = () => {
+    if (mode === "dark") {
+      setmode("light");
+      document.body.style.backgroundColor = "white";
+      showAlert(" light mode is enabled", "success");
+    } else {
+      setmode("dark");
+      document.body.style.backgroundColor = "rgb(10 36 71)";
+      showAlert(" Dark  mode is enabled", "success");
+    }
+  };
+  return (
+    //    <>
+    // <Navbar title="Textutil" AboutText="About us" link="Home " mode={mode} togglemode={togglemode} />
+    //       <Alert alert={alert} />
+    //       <Textform it="write your favourite text here  " mode={mode} showAlert={showAlert} />
+    //      </>
 
-      }
-   }
-   return(
-      
-       <BrowserRouter>
-         <Routes> 
-            <Route
-               element={
-                  <div>
-                     <Navbar title="Textutil" AboutText="About us" link="Home " mode={mode} togglemode={togglemode} />
-                               <Alert alert={alert} />   
-                     <Outlet />
-                  </div>
-               }
-             >
-         <Route exact path='/' element={<Textform it="write your favourite text here  " mode={mode} showAlert={showAlert} />}/>      
-            <Route exact path='/about' element={<About />} />
-         </Route>
-         </Routes> 
-       </BrowserRouter>
-          
-
-  )
-   
-  
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={
+            <div>
+              <Navbar
+                title='Textutil'
+                AboutText='About us'
+                link='Home '
+                mode={mode}
+                togglemode={togglemode}
+              />
+              <Alert alert={alert} />
+              <Outlet />
+            </div>
+          }
+        >
+          <Route
+            exact
+            path='/'
+            element={
+              <Textform
+                it='Try TextUtils-Word  Counter , Character Counter , Remove Extra Spaces'
+                mode={mode}
+                showAlert={showAlert}
+              />
+            }
+          />
+          <Route exact path='/about' element={<About mode={mode} />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 //  return (
     
